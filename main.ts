@@ -10,6 +10,11 @@ import { mkdirSync, writeFileSync } from "node:fs";
 const PLACARD =
   "Rubber stamp, c. 1976. Wood handle, 'APPROVED' in red. It blessed a thousand forms it never read; one it refused is still on the desk. Do not press it twice.";
 
+// Fail loudly instead of shipping a line the gate would refuse.
+if (PLACARD.length < 1 || PLACARD.length > 180) {
+  throw new Error(`Placard is ${PLACARD.length} characters, outside the 1-180 gate.`);
+}
+
 mkdirSync("/output", { recursive: true });
 writeFileSync("/output/entry.txt", PLACARD, "utf8");
 console.log(PLACARD);
